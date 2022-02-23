@@ -46,8 +46,8 @@ __F'NZ__
   
   
   __USEFUL FUNCTIONS__  
-  ord(character)          === get the ordinal value (decimal representation) of a single string character  
-  format(integer, '0>8b') === format a number to be represented as binary without a binary indicator (no 0b010101, 00010101 instead)  
-  int(to convert, base)   === specify a base when converting a string (or other type) to an integer  
-  chr(integer)            === interprets an integer as an ordinal value, and represents it as the ASCII value of the number  
+  ```ord(character)          ```=== get the ordinal value (decimal representation) of a single string character  
+  ```format(integer, '0>8b') ```=== format a number to be represented as binary without a binary indicator (no 0b010101, 00010101 instead)  
+  ```int(to convert, base)   ```=== specify a base when converting a string (or other type) to an integer  
+  ```chr(integer)            ```=== interprets an integer as an ordinal value, and represents it as the ASCII value of the number  
   
