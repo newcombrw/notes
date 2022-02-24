@@ -1,4 +1,5 @@
 __PYTHON__  
+REFER TO: docs.python.org  
 __F'NZ__
   syntax:
   ```python 
@@ -63,4 +64,12 @@ __F'NZ__
     fp.readlines() === reads the whole file as a list of strings. each element is delimited by a new line
     fp.writelines(['str1', 'str2']) === same as write, but inserts everything as the list. you need to add new lines as before
   ```
-  
+  __IMPORTING__  
+  to import something from the python standard library (or importing any script), you can use:  
+  ```import xyz```  
+  allowing you to call on functions within the ```xyz``` script via ```xyz.somefunction()```  
+  you can rename the import to something shorter by using:  
+  ```import xyz as z```  
+  you can also import functions specifically by using:  
+  ```from xyz import func1, func2, func...```  
+  allowing you to use ```func1() func2() func...()``` without clarification  
