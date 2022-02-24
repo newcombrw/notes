@@ -50,4 +50,17 @@ __F'NZ__
   ```format(integer, '0>8b') ```=== format a number to be represented as binary without a binary indicator (no 0b010101, 00010101 instead)  
   ```int(to convert, base)   ```=== specify a base when converting a string (or other type) to an integer  
   ```chr(integer)            ```=== interprets an integer as an ordinal value, and represents it as the ASCII value of the number  
+  ```len(str) or len(list)   ```=== gets the length of a string in characters, or the length of a list in elements
+  
+  __FILEIO__  
+  use ```open(strName)``` to open a file. this returns a file pointer object. use ```filePointerObject.close()``` to close the file.  
+  shorthand open/close:  
+  ```python
+  with open(strName, 'rwb') as fp:
+    #work on the file here
+    fp.read() === read all the lines from the file as a string. you can specify how many bytes to read (fp.read(value))
+    fp.write("string to write") === write to the file. replace everything else. no newline character
+    fp.readlines() === reads the whole file as a list of strings. each element is delimited by a new line
+    fp.writelines(['str1', 'str2']) === same as write, but inserts everything as the list. you need to add new lines as before
+  ```
   
