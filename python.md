@@ -54,7 +54,7 @@ __F'NZ__
   myStr[::-1] === olleh <displays the string/list in reverse>
   myStr[:-1]  === hell <displays the list/string without including te last element>
   ```
-  
+  ```map(func, iterable)``` perform an action on an iterable object, and turn it into a map
   
   __USEFUL FUNCTIONS__  
   ```ord(character)          ```=== get the ordinal value (decimal representation) of a single string character  
