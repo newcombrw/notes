@@ -6,7 +6,17 @@ __F'NZ__
   def myFunction(<params...>):
     return val
   ```
-  defines a function with any parameters and returns a value.
+  defines a function with any parameters and returns a value.  
+    
+  variable length arguments: ```def myfn(*args):``` args is a tuple
+  keyword args, a variable-length dictionary argument:  
+  ```def myfn(**kwargs):``` will create a dictionary.  
+  at the call site:  
+  ```myfn( myKey1 = 'value', myKey2 = 'othervalue')```  
+  the keys at the callsite will be converted to a string when used in the function:  
+  ```kwargs['myKey1'] === 'value'```  
+  declaring a lambda:  
+  ```myfn = lambda x : x * 2```
   
   __SCOPE__
   objects, variables, or functions defined anywhere in a script is considered a global variable
@@ -73,3 +83,11 @@ __F'NZ__
   you can also import functions specifically by using:  
   ```from xyz import func1, func2, func...```  
   allowing you to use ```func1() func2() func...()``` without clarification  
+  
+  __DATA STRUCTURES__  
+  Set = an unordered list of unique objects. any repeating objects added to the set will be removed  
+  ```my_set = { 1, 2, 3 }```
+  Dictionary = a list where each index is mapped to an arbitrary key  
+  ```my_dict = { 'i' = 1, 'v' = 5, 'x' = 10 }```
+  ``` for key, value in romanNum.items():``` returns both the key and value, as opposed to:  
+  ``` for key in romanNum:``` which only returns each key  
