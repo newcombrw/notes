@@ -37,3 +37,4 @@ file
 ls -l -not -type d .$1 | grep -v "names.txt" > $HOME/CUT/names.txt
 ```
   
+Variables must NOT have spaces between the assignment operator when being declared.
