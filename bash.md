@@ -38,3 +38,56 @@ ls -l -not -type d .$1 | grep -v "names.txt" > $HOME/CUT/names.txt
 ```
   
 Variables must NOT have spaces between the assignment operator when being declared.
+
+
+
+__LOOPS__  
+1. for loops - iterate through a list, range, etc  
+  ```bash
+  for THING in my list of things this is a list
+  do
+    echo $THING
+  done
+  
+  #iterate over array variable
+  names='Stan Kyle Cartman'
+  for name in $names
+  do
+  echo $name
+  done
+  
+  #range loop
+  for value in {1..5}
+  do
+  echo $value
+  done
+  
+  for value in {10..1}
+  do
+  echo $value
+  sleep 1
+  done
+  echo "Blast off"
+  
+  #counter loop
+  for ((x=0 ; x<=5 ; x++))
+  do
+  echo "\$x equals $x"
+  (( i++ )) #another way to increment i when using the c-style for loop
+  done
+  
+  start=1
+  end=10
+  for ((i=start; i<=end; i++))
+  do
+  echo $i
+  done
+  
+  for i in $(ls *.txt) #you can create a list from a command, which you can iterate through
+  
+  
+  ```  
+2. until loops - 
+  ```bash
+  
+  ```  
