@@ -1,26 +1,19 @@
-Activity_1-5
-mkdir $HOME/11{23,34,45,56}  
-touch $HOME/1123/{1,2,3,4,5}.txt; touch $HOME/1123/{6,7,8,9}\~.txt  
-find $HOME/1123 -name *.txt | grep -v "~"
-find 1123 -type f -name *.txt \! \( -name '*~.txt' \) -execdir cp {} ../CUT/{} \;
-find /lib -empty -printf "%i %f\n"  
-find / -inum 999 -printf "%f\n"  
-#!/bin/bash
-ls -l -not -type d .$1 | grep -v "names.txt" > $HOME/CUT/names.txt
 
-Activity_6
 
-Activity_7
-Activity_8
-Activity_9
-Activity_10
-Activity_11
-Activity_12
-Activity_13
-Activity_14
-Activity_15
-Activity_16
-Activity_17
-Activity_18
-Activity_19
-Activity_20
+
+
+
+
+
+
+
+
+
+
+sudo find /bin /sbin -executable -type f -exec md5sum {} \; 2> /dev/null | uniq | sort | sed -n '10p'
+sudo cat /etc/passwd | sort -k 4 -t: -n | awk -F: 'NR == 10 {print $6}' | md5sum 
+find /bin /etc /var -maxdepth 3 ! -type p -exec md5sum {} \; 1> out.txt 2> err.txt; echo "NUMBER OF SUCCESSFUL HASHES"; wc -l out.txt; echo "NUMBER OF UNSUCCESSFUL HASHES"; wc -l err.txt
+if [ -d $HOME/.ssh ]; then cp $HOME/.ssh $HOME/SSH; else echo "aint no .ssh directory"; fi
+
+
+
