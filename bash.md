@@ -1,49 +1,38 @@
-Tricks:  
-ctrl+R === the "reverse i search" search feature. you can also add a comment and search by comment  
-for very long commands, you can use this to use the command again  
-sudo !! === run the last command you tried, but this time with sudo  
+
+1: mkdir, touch, ls, rm, rmdir, cp, mv, cat, more, less, find, egrep/grep, brace expression, ps, kill, killall, cut, command chaining operators, output redirection
+2: awk, sort, uniq, conditionals, if statements, aliases, sed 
+3: variables, command substitution, builtin variables, functions 
+4: for, while, until loops
 
 
-Directories:  
-mkdir -p /{}/{}/{} === even if the folder doesnt exist yet, create it and nest the next directory with -p  
-cd - === go back to your previous directory  
+##SHELL COMMANDS
+```mkdir```
+```touch```
+```ls```
+```rm```
+```rmdir```
+```cp```
+```mv```
+```more``` ```head``` ```less``` ```tail``` ```cat```
+```find```
+```egrep```
+```ps```
+```kill/pkill/killall```
+```cut```
+```awk```
+```sort```
+```uniq```
+```sed```
 
-File Manip:  
-curl cht.sh/<command> === list examples of the command <command>  
-explainshell.com === paste a command in here and get an explaination of the command  
+##SCRIPTING CONCEPTS  
+__Variable Declaration__  
 
-which - get the absolute path of the given command  
-whereis - get the absolute file path of a command (including all hits)  
-whatis - get the man page synopsis of a command  
+__Conditionals__  
 
-egrep -v "exlude this" === return every line that doesnt contain the matched text  
-file 
+__Command Chain Operators__  
 
-
-
-.  
-.  
-.  
-.  
-1.1: mkdir $HOME/11{23,34,45,56}  
-1.2: touch $HOME/1123/{1,2,3,4,5}.txt; touch $HOME/1123/{6,7,8,9}\~.txt  
-1.3: find $HOME/1123 -name *.txt | grep -v "*\~\*"
-2: find $HOME/1123 -name \*.txt \\! -name '\*\~\*' -exec cp $HOME/CUT {} \;  
-3: find /lib -empty -printf "%i %f\n"  
-4: find / -inum 999 -printf "%f\n"  
-5:  
-```bash
-#!/bin/bash
-ls -l -not -type d .$1 | grep -v "names.txt" > $HOME/CUT/names.txt
-```
-  
-Variables must NOT have spaces between the assignment operator when being declared.
-
-
-
-__LOOPS__  
-1. for loops - iterate through a list, range, etc  
-  ```bash
+__Loops__  
+ ```bash
   for THING in my list of things this is a list
   do
     echo $THING
@@ -87,7 +76,23 @@ __LOOPS__
   
   
   ```  
-2. until loops - 
-  ```bash
-  
-  ```  
+__Command Substitution, Brace Expansion__  
+__TRICKS__  
+ctrl+R === the "reverse i search" search feature. you can also add a comment and search by comment  
+for very long commands, you can use this to use the command again  
+sudo !! === run the last command you tried, but this time with sudo  
+
+mkdir -p /{}/{}/{} === even if the folder doesnt exist yet, create it and nest the next directory with -p  
+cd - === go back to your previous directory  
+
+File Manip:  
+curl cht.sh/<command> === list examples of the command <command>  
+explainshell.com === paste a command in here and get an explaination of the command  
+
+which - get the absolute path of the given command  
+whereis - get the absolute file path of a command (including all hits)  
+whatis - get the man page synopsis of a command  
+
+egrep -v "exlude this" === return every line that doesnt contain the matched text  
+file 
+
