@@ -5,7 +5,7 @@
 4: for, while, until loops
 
 
-##SHELL COMMANDS
+  ##SHELL COMMANDS
 ```mkdir```
 ```touch```
 ```ls```
@@ -24,7 +24,7 @@
 ```uniq```
 ```sed```
 
-##SCRIPTING CONCEPTS  
+  ##SCRIPTING CONCEPTS  
 __Variable Declaration__  
 
 __Conditionals__  
