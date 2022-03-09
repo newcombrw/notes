@@ -1,0 +1,23 @@
+Set-ExecutionPolicy - set the machine's execution rules for scripts
+Get-Service - get metadata about a service
+
+Parameter sets = using a specific parameter might be restricted to a specific set (there aren't infinite combinations of switches)
+[] brackets = multiple arguments separated by a comma with no whitespace
+<> brackets = replace with actual word
+
+PARAMETERS
+Positional parameters = parameters that take a certain type as an argument, and can be implied based on that position
+Get-Service             -Verbose                            -                           Name dhcp                                 "SSH Agent"
+<command>    <parameter that accepts no arguments -- can be anywhere> <parameter that accepts a string -- positional> <"-DisplayName" is assumed here>
+
+Get-Alias * , Get-ChildItem alias: == get all aliases
+New-Alias -name dir -value Get-ChildItem
+$? - last command return status
+${$} - last command utilized
+$^ - the last command
+$_ - object in the current pipeline (get the first item of the last output)
+$null - the null variable
+$input - enumerator. enumerates all arguments passed to a function
+
+
+get-childitem env: == get a list of environmental variables
