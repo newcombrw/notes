@@ -1,0 +1,7 @@
+1-------
+  2. Get-Process, Start-Process, Stop-Process, Wait-Process
+  3. Get-Service * or Get-ChildItem HKLM:\SYSTEM\CurrentControlSet\Services
+  4. Write-Output, Write-Host, Write-Warning, Write-Error
+  5. Clear-Variable, Get-Variable, New-Variable, Remove-Variable, Set-Variable
+  6. Get-Command
+  7. Read-Host
