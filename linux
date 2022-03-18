@@ -26,4 +26,7 @@ FILE SYSTEM
   openssl -- encrypt and decrypt files using specified encryption
   
   
-  
+  WINDOWS BOOT PROCESS AND BCD EDIT
+  Bootkits can be utilized or exist during this process. These run in kernel mode (System process)
+  bcdedit /set XYZ
+  bcdedit /export .\my_export_file
