@@ -1,0 +1,29 @@
+FILE SYSTEM
+  /       -- root. everything will fall under here
+  /bin    -- standard system binaries (ls, echo)
+  /boot   -- boot loader config files and boot-related libraries (grub/efi)
+  /dev    -- hardware connected to the computer.
+  /etc    -- everything thats configurable, config files for the system
+  /home   -- default user login 
+  /lib    -- also lib64, contains system libraries (glibc)
+  /media  -- access external storage devices (these devices could also automatically go into /run depending on the distro)
+  /mnt    -- manual mounting devices/partitions 
+  /opt    -- software compiled by the user
+  /proc   -- processes that interfaces with the kernel
+  /run    -- automatically mounted devices, temporary files
+  /root   -- root users home directory
+  /sbin   -- system binaries (binaries not used by ordinary users, like sudo/root user binaries)
+  /srv    -- server data
+  /sys    -- interface to the kernel, a virtual filesystem that is used by the kernel
+  /tmp    -- temporary files for anything, with global rwx permissions
+  /usr    -- universal system resources (binaries, games, libraries, source code, etc), a mesh of several things
+  /var    -- variable data, logs, mail
+  
+  
+  COMMANDS
+  xxd     -- hex dump of a file
+  dd      -- copy file byte by byte
+  openssl -- encrypt and decrypt files using specified encryption
+  
+  
+  
