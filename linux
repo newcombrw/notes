@@ -30,3 +30,7 @@ FILE SYSTEM
   Bootkits can be utilized or exist during this process. These run in kernel mode (System process)
   bcdedit /set XYZ
   bcdedit /export .\my_export_file
+  
+  
+  To be able to view our powershell profiles to see if any were edited:
+  $PROFILE | get-member -membertype noteproperty | select -expandproperty name | foreach { if ((test-path $PROFILE.$_) -eq $true) { write-host "`$PROFILE.$_ exists!" } }
