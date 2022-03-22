@@ -1,0 +1,73 @@
+FILE SYSTEM
+  /       -- root. everything will fall under here
+  /bin    -- standard system binaries (ls, echo)
+  /boot   -- boot loader config files and boot-related libraries (grub/efi)
+  /dev    -- hardware connected to the computer.
+  /etc    -- everything thats configurable, config files for the system
+  /home   -- default user login 
+  /lib    -- also lib64, contains system libraries (glibc)
+  /media  -- access external storage devices (these devices could also automatically go into /run depending on the distro)
+  /mnt    -- manual mounting devices/partitions 
+  /opt    -- software compiled by the user
+  /proc   -- processes that interfaces with the kernel
+  /run    -- automatically mounted devices, temporary files
+  /root   -- root users home directory
+  /sbin   -- system binaries (binaries not used by ordinary users, like sudo/root user binaries)
+  /srv    -- server data
+  /sys    -- interface to the kernel, a virtual filesystem that is used by the kernel
+  /tmp    -- temporary files for anything, with global rwx permissions
+  /usr    -- universal system resources (binaries, games, libraries, source code, etc), a mesh of several things
+  /var    -- variable data, logs, mail
+  
+  
+  COMMANDS
+  xxd     -- hex dump of a file
+  dd      -- copy file byte by byte
+  openssl -- encrypt and decrypt files using specified encryption
+  
+  
+  WINDOWS BOOT PROCESS AND BCD EDIT
+  Bootkits can be utilized or exist during this process. These run in kernel mode (System process)
+  bcdedit /set XYZ
+  bcdedit /export .\my_export_file
+  
+  
+  To be able to view our powershell profiles to see if any were edited:
+  $PROFILE | get-member -membertype noteproperty | select -expandproperty name | foreach { if ((test-path $PROFILE.$_) -eq $true) { write-host "`$PROFILE.$_ exists!" } }
+  
+  EB63 - assembly code at the start of MBR
+  55AA - assembly code at the end of MBR
+
+
+LINUX
+  lsblk - show the partitions. use -f to list the mountpoint and IDs
+  dd - copy parts of a file, or a file, binary level copy/conversion
+  xxd - read hex
+  ltrace - see what system calls are used during any command execution (ltrace -S <myexe>)
+  lsmod - see the modules that the kernel is using
+  ls -l /sbin/init to view the init system in use (systemd?)
+  
+  ls -l /lib/systemd/system/default.target can be used to view the current systemd run level
+     OR /etc/systemd/system/ can be used to view info about systemd services/run level
+  /etc/inittab is where you can see what the default runlevel is for sysv
+  
+  systemctl list-dependencies xyz.target (lets you list the dependencies of a given target)
+  systemctl show -p Wants graphical.target (see the list of wants that is requested by the graphical run level)
+  systemctl list-units --type service (specify a type of target you want to get a list of)
+  systemctl cat some.service (will print out service information)
+  
+  LOADED AT BOOT
+  /etc/environment            --- the PATH variable
+  /etc/profile                --- read every time you open an interactive login shell. This is system level, so every login reads this
+  /etc/bash.bashrc            --- read every tune you open an interactive non-login shell. This is system level, so every login reads this
+  ~/.profile, ~/.bash_profile --- similar to /etc/profile, but for a specific user during login
+  ~/.bashrc                   --- similar to /etc/bash.bashrc, but for a specific user during login
+  
+  
+  
+  ssh user@<admin station ip> -L <linopsport > 1024>:<ipofterra>:22 -L <linopsport > 1024>:<ipofminas-tirith>:22 
+  then, in other terminator panes: ssh <usermatching machines we created tunnels for>@localhost -p <linops port specified above in -L>
+  
+  
+  
+  
