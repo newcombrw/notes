@@ -70,4 +70,29 @@ LINUX
   
   
   
+  WINDOWS HANDLE MANIP
+  tasklist /m /fi "IMAGENAME eq SOME_ACTIVE_PROCESS.exe" - get the handles of a given process. also show image name
+  sc.exe - use this to get info about services
+  
+  PROCEXP COLORS
+  New Objects (Bright Green) – When a new process shows up in Process Explorer, it starts out as bright green.
+  Deleted Objects (Red) – When a process is killed or closes it will usually flash red right before deleting.
+  Own Processes (Light Blueish) – Processes running as the same user account as Process Explorer.
+  Services (Light Pink) – Windows Service processes, although it’s worth noting that they might have child processes that are launched as a different user, and those might be a different color.
+  Suspended Processes (Dark Gray) – When a process is suspended it can’t do anything. You can easily use Process Explorer to suspend an application. Sometimes crashed apps will briefly show up in gray while Windows is handling the crash.
+  Immersive Process (Bright Blue) – This is just a fancy way of saying that the process is a Windows 8 application using the new APIs. In the screenshot earlier you might have noticed WSHost.exe, which is a “Windows Store Host” process that runs Metro apps. For some reason Explorer.exe and Task Manager will also show up as immersive.
+  Packed Images (Purple) – these processes might contain compressed code hidden inside of them, or at least Process Explorer thinks that they do by using heuristics. If you see a purple process, make sure to scan for malware!
+  
+  LOGGEDON LOGIN TYPES
+  login type 2 interactive shell
+  login type 3 cli networklogin, non-gui
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
