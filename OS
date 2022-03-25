@@ -89,10 +89,17 @@ LINUX
   
   
   
+  PROCESS ENUMERATION
+  ps --ppid 1 -lf --forest (get a long listing of everything init forks)
   
+  CRON JOBS LOCATIONS
+  /var/spool/cron
+  /etc/cronttab
+  /etc/cron.d
   
-  
-  
-  
+  crontab -l -e <job> -u student
+  sudo lsof | grep <command or program>
+  /proc/net - you can see open ports. cross reference this with lsof to find what program or daemon has that port open
+  use the inode in the /proc/net/tcp file, then grep that from lsof and it will show you the program/command that is opening that portgrep
   
   
