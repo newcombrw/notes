@@ -102,4 +102,10 @@ LINUX
   /proc/net - you can see open ports. cross reference this with lsof to find what program or daemon has that port open
   use the inode in the /proc/net/tcp file, then grep that from lsof and it will show you the program/command that is opening that portgrep
   
+  journalctl --list-boots                         == get a list of all reboots
+  journalctl -b <md5>                             == gets information of the boot
+  journalctl -u some.service                      == gets log information on some service
+  journalctl --since "YYYY-MM-DD HH:MM:SS"        == gets log information since a specified time
+  
+  
   
