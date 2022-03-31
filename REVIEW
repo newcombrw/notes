@@ -1,0 +1,28 @@
+------LINUX------
+look at processes, find parent processes, see what they are doing
+use file command
+do NOT look in handles, drivers, binaries
+startup locations
+systemd == /lib(or etc)/systemd/system/*.service
+sysv    == /etc/inittab OR /etc/rc#.d/ (look for/in service scripts)
+          look in CRON directories
+          /etc/crontab
+          /etc/cron.d
+          /var/spool/cron
+          look in profile directories
+          ~/.profile
+          ~/.bashrc
+          ~/.bash_logout
+          
+What is x doing, why is x doing that, how is x doing that, what is in x
+
+
+
+------WINDOWS------
+examining processes/services: 
+  REGISTRY::::: autoruns: view all of the registry keys that start during certain times, also view scheduled tasks
+  SERVICES::::: services.msc, sc, gwmi win32_service
+  SCHTASKS::::: autoruns, schtasks, get-scheduledtask
+  CONNECTIONS:: tcpview, netstat -ano 
+  PROCESSES:::: procmon, gwmi win32_process 
+ignore event logs
