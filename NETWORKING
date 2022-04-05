@@ -1,0 +1,67 @@
+1. Networking Fundamentals
+  I MATHEMATICS OF NETWORKING
+    bit - smallest measurement, a 0 or 1
+    nibble - 4 bits
+    byte - 8 bits
+    half word - 16 bits
+    word - 32 bits
+    dword - 64 bits
+  II BASE (N) FORMATS
+    Base 2 - 0 or 1, aka binary (0b...)
+    Base 10 - 1-10, aka decimal 
+    Base 16 - 1-16, aka hexadecimal (0x...)
+    Base 64 - 1-64
+  III CONVERSION
+    Bin->Hex separate into nibbles and add (8421 nibbles)
+    Dec->Hex 
+  IV ENCAPSULATION/DECAPSULATION
+    Encapsulation is the act of packaging a message of data into another protocol. (a packet is wrapped in a frame, for example)
+    Decapsulation is the act of stripping the packaging to get the actual data. (a tcp packet is revealed when stripping ip headers, for example)
+    Encapsulation occurs when data is being sent to a destination. Decapsulation occurs when data is being received from a destination.
+    The destination in question doesn't have to be the final "hop".
+  V OSI MODEL
+          LAYER           PDU               EXAMPLE
+    7 -> Application      Data              HTTP/S,DNS,SSH
+    6 -> Presentation     Data              MP4,7ZIP,HTML,SSL/TLS
+    5 -> Session          Data              SOCKS,RPC,RTP
+    4 -> Transport        Datagram/Segment  TCP/UDP
+    3 -> Network          Packet            IPv4/6,IPSEC,ICMP,BGP
+    2 -> Data             Frame             802.11,802.3,CABLE
+    1 -> Physical         Bits              802.11abgn, COAX/FIBER
+    
+    Layer 1 - encoding/signaling, data xfer, physical network design
+    Layer 2 - MAC/LLC, Defined the "ethernet header" (IEEE 802.3)
+      | PREAMBLE 7 byte alternating 1010101 | SFD (1 byte delimiter) | ETHERNET FRAME
+      ETHERNET FRAME :::: DMAC (6 Bytes) | SMAC (6 bytes) | (vlan flag? +4bytes) Ethertype (2 bytes) | Payload (46-1500 bytes) | CRC/FCS (4 bytes) 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
