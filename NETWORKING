@@ -33,7 +33,47 @@
     Layer 2 - MAC/LLC, Defined the "ethernet header" (IEEE 802.3)
       | PREAMBLE 7 byte alternating 1010101 | SFD (1 byte delimiter) | ETHERNET FRAME
       ETHERNET FRAME :::: DMAC (6 Bytes) | SMAC (6 bytes) | (vlan flag? +4bytes) Ethertype (2 bytes) | Payload (46-1500 bytes) | CRC/FCS (4 bytes) 
+    Layer 3 - IPv6, IPv6
+    Layer 4 - TCP/UDP
+  VI
   
+  VII SOCKET PROGRAMMING/PACKET CREATION
+    Types of sockets: 
+      Stream Sockets (string) - connection oriented & sequenced; used with TCP, SCTP, Bluetooth
+      Datagram Sockets (dgram) - connectionless. Quick sending/receiving; UDP
+      Raw Sockets (raw) - Direct sending/receiving on IP packets without automatic, protocol-specific formatting
+      
+      Stream & Datagram sockets are in userspace, while Raw sockets are in kernel space... These userspace sockets are
+      the most common sockets. They don't require elevated privileges to perform actions, while kernelspace sockets are
+      going to attempt to access hardware directly, which prevents encapsulation/decapsulation or create packets from
+      scratch.
+      
+      Userspace is used for high ports when creating a listener, connecting to a listener, using nmap with no switches, or 
+      reading files through wireshark/tcpdump. Kernelspace is used for creating listeners on 0-1023, nmap with switches, 
+      capturing packets on the wire, or crafting raw sockets or sending raw sockets.
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    
   
   
   
