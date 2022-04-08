@@ -51,7 +51,19 @@
       Userspace is used for high ports when creating a listener, connecting to a listener, using nmap with no switches, or 
       reading files through wireshark/tcpdump. Kernelspace is used for creating listeners on 0-1023, nmap with switches, 
       capturing packets on the wire, or crafting raw sockets or sending raw sockets.
-      
+   
+   VIII NETWORK RECONNAISSANCE
+    1. NMAP SCANS
+      TCP Connect (sT) - Sends 3 way handshake and attempts to fully connect to the port
+      TCP SYN (sS) -  Sends a SYN packet to each port, and awaits a SYN/ACK. Doesn't connect (RST means the port isn't open, no response = filtered)
+      UDP (sU) - used to banner grab UDP listeners.
+    2. BANNER GRABBING
+      nc x.x.x.x <port you want to banner grab from>
+    3A. GRABBING FILES FROM THE HOST
+      WGET: Supports HTTP, HTTPS, FTP
+        Connect to FTP: wget ftp://x.x.x.x:xxxx -r
+        Connect to HTTP/S: x.x.x.x:xxxx -r
+    3B. ATTEMPT TO CONNECT TO THE KNOWN PORT
       
       
       
