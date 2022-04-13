@@ -64,21 +64,96 @@
         Connect to FTP: wget ftp://x.x.x.x:xxxx -r
         Connect to HTTP/S: x.x.x.x:xxxx -r
     3B. ATTEMPT TO CONNECT TO THE KNOWN PORT
+  
+  IX DATA TRANSFER, MOVEMENT, REDIRECTION
+    TFTP (UDP 69; RFC 1350 Rev2; small/simple, insecure)
+    FTP (active or passive) (TCP 21/20; RFC 959; needs multiple connections, insecure by default (use FTPS))
+    SFTP (TCP 22; RFC 913; encrypted, adds ftp to SSH, interactive terminal access)
+    FTPS (TCP 443; RFC 2228; SSL/TLS over FTP, interactive terminal access)
+    SCP (TCP 22; RFC ?; encrypted, non interactive, login with ssh key)
+        SCP with an alternate port:
+        <user>@<next hop IP> -L <port to connect to>:localhost:22 -NT
+        ssh student@172.16.82.106 -L 1111:localhost:22 -NT
       
+    NETCAT (swiss army knife network communication)
+      File Transfer:
+        as client - nc 10.2.0.2 9001 < file.txt
+        as server - nc -l -p 9001 > newfile.txt
+        OR
+        nc -lvp <port> < sent.txt
+        nc -v -w1 <ip>:<port> > received.txt
+        
+      Relay Messages (act as a man in the middle for a transfer)
+        Middle man: mknod mypipe p
+                    nc <senderip> <senderport> 0< mypipe | nc <receiverip> <receiverport> 1> mypipe        
+        Sender: nc -l -p <senderport> < sent.txt
+        Receiver: nc -l -p <receiverport> > receive.txt
+        
+      These can also function as a chat, if you remove the redirectors and just use netcat
+
+  
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+    NETWORK TUNNELING
+      SSH
+        SSH has 2 major versions (v1 & v2), provides auth, encryption, integrity, and is used for tunneling.
+        rsh can be used for opening a shell on a remote computer
+        rlogin provides remote login capabilities
+        rcp is a replacement for scp for secure file xfers
+        
+        Port Forwarding w/ SSH
+          - creates channels using SSH-CONN protocol, allows you to tunnel other services through ssh, but provides insecure services encryption
+          local port forwarding opens a port on the calling machine, and receives from a port on the remote machine. when you connect to that port,
+          it will redirect you to the target port
+            ssh student@1.1.1.1 -L 1111:localhost:80 -NT
+              open a port on 1111 local machine. now, any connections to 1111 will forward to localhost:80
+              
+            ssh student@1.1.1.1 -L 1111:2.2.2.2:22 -NT
+              open the local port 1111. any connections to 1111 will redirect to 2.2.2.2:22
+            ssh student@localhost -p 1111
+              connect to the local port 1111. This will redirect to 2.2.2.2:22
+            ssh student@localhost -p 1111 -L 2222:3.3.3.3:80 -NT
+              on the local port 1111, which redirects to 2.2.2.2:22, create another port that redirects all connections to 2222 to 
+              redirect to 3.3.3.3:80
+            firefox localhost:2222
+              connect to local port 2222, which redirects to 3.3.3.3:80
+            ssh student@1.1.1.1 -R 4444:2.2.2.2:22
+              open remote port 4444 on 1.1.1.1. any connections to 4444 on the remote machine 1.1.1.1 will redirect to 2.2.2.2:22
+            ssh student@1.1.1.1 -p 4444
+              connect to the remote port 4444 on 1.1.1.1, which then redirects to 2.2.2.2:22
+            ssh student@1.1.1.1 -p 4444 -R
+        *Dynamic Port Forwarding*
+          TCP programs only. This allows you to connect through your port to the local machine with a dynamic service. This
+          creates what is a "proxy", allowing you to run commands through the machine you are connecting with (1.1.1.1). You can use:
+          netcat, nmap, netstat, wget, or other tcp-based programs. You may use scripts. This uses a socks4 proxy that interacts on behalf
+          of the machine you are connecting with (1.1.1.1).
+            ssh user@1.1.1.1 -D <port you connect on, default 9050> -p <alternate port for connecting to 1.1.1.1> -NT
+              I am opening a dynamic service port on 1.1.1.1. Running a command using proxychains will come from 1.1.1.1
+              
+          1. host enumeration (uname -a, who, w, ...)
+          2. network enumeration (ip a, ifconfig, arp -a, netstat -anp or ss -notp)
+          3. files of interest (find, the ctf will tell you which directory is of interest, eom to view images)
+                which arp nmap tcpdump nc netcat wget telnet ssh
+          4a. pingsweep script to find other machines in the subnet: 
+                for i in $(seq <FIRSTNUM> <LASTNUM>); do ping <NETIP>.$i -c1 -W1 & done | grep from
+          4b. banner grab for a few known ports (21,22,23,80) on the neighbors:
+                netcat <neighborip> <21/22/23/80>
+                wget -r <ftp://><neighborip>:<21|80|443>
+                
+             NOTE: if there is a port that you didnt see on the outside scan that is on the machine, there is likely a firewall and it
+             will require a remote tunnel.
+          
+          ssh <user>@<ip> -D 9050 -NT
+          in another window, you use proxychains <command> to send a command through the machine you set as a proxy to any target
+          
+          Getting further into the connection:
+            After gaining access on the first machine, you can use dynamic port forwarding to access the second machine.
+            Once you've gained access to the second machine, you will create a local port forward to the first hop, then a dynamic
+            port forward on the second hop in order to gain access to the third machine.
+        Remote Port Forwarding
+          From the remote machine, create a remote port that opens up to SSH. This bypasses firewall filters (telnet into remote, then open remote port)
+            ssh student@<AP_IP> -R <HIGH#PORT>:<THIS_IP>:22
+          
+        
       
       
       
