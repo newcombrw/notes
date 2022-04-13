@@ -152,11 +152,15 @@
         Remote Port Forwarding
           From the remote machine, create a remote port that opens up to SSH. This bypasses firewall filters (telnet into remote, then open remote port)
             ssh student@<AP_IP> -R <HIGH#PORT>:<THIS_IP>:22
-          
-        
       
-      
-      
+            Your Network Number is 1 (Given by Instructor)
+            19 is your student number
+
+            Credentials: net1_student19:password19
+            
+            T3 (Atropia) Float IP address is - 10.50.29.96
+            T4 (Pineland) Float IP address is - 10.50.21.23 (Note - You can only telnet here to act as an insider, this will not be a routed path)
+            Port range for making tunnels is - 11900-11999
       
       
       
