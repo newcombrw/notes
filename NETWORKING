@@ -132,7 +132,7 @@
           1. host enumeration (uname -a, who, w, ...)
           2. network enumeration (ip a, ifconfig, arp -a, netstat -anp or ss -notp)
           3. files of interest (find, the ctf will tell you which directory is of interest, eom to view images)
-                which arp nmap tcpdump nc netcat wget telnet ssh
+                which arp nmap tcpdump nc netcat wget telnet ssh wireshark
           4a. pingsweep script to find other machines in the subnet: 
                 for i in $(seq <FIRSTNUM> <LASTNUM>); do ping <NETIP>.$i -c1 -W1 & done | grep from
           4b. banner grab for a few known ports (21,22,23,80) on the neighbors:
@@ -152,7 +152,7 @@
         Remote Port Forwarding
           From the remote machine, create a remote port that opens up to SSH. This bypasses firewall filters (telnet into remote, then open remote port)
             ssh student@<AP_IP> -R <HIGH#PORT>:<THIS_IP>:22
-      
+      ****************************************************************************************************
             Your Network Number is 1 (Given by Instructor)
             19 is your student number
 
@@ -161,7 +161,8 @@
             T3 (Atropia) Float IP address is - 10.50.29.96
             T4 (Pineland) Float IP address is - 10.50.21.23 (Note - You can only telnet here to act as an insider, this will not be a routed path)
             Port range for making tunnels is - 11900-11999
-      
+            
+      *****************************************************************************************************
       
       
     
