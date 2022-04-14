@@ -130,7 +130,7 @@
               I am opening a dynamic service port on 1.1.1.1. Running a command using proxychains will come from 1.1.1.1
               
           1. host enumeration (uname -a, who, w, ...)
-          2. network enumeration (ip a, ifconfig, arp -a, netstat -anp or ss -notp)
+          2. network enumeration (ip a, ifconfig, arp -a, netstat -anp or ss -notp, ip neigh)
           3. files of interest (find, the ctf will tell you which directory is of interest, eom to view images)
                 which arp nmap tcpdump nc netcat wget telnet ssh wireshark
           4a. pingsweep script to find other machines in the subnet: 
