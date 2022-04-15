@@ -164,12 +164,12 @@
             
       *****************************************************************************************************
       
-      
-    
-  
-  
-  
-  
+  NETWORK ANALYSIS
+    POF (used for passive os fingerprinting): builds variations/statistical analysis of packets (differences in TTL, for example)
+      - configuration location is  /etc/p0f/p0f.fp
+    BASELINE (the norm of the network)
+      determine the current state of the network and when/where packets usually come from/go to
+
   
   
   
