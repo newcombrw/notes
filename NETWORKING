@@ -170,10 +170,18 @@
     BASELINE (the norm of the network)
       determine the current state of the network and when/where packets usually come from/go to
 
-  
-  
-  
-  
+   SNORT
+    check version: snort -V
+    snort config file is kept in /etc/snort/snort.conf
+    snort rules are kept in /etc/snort/rules/*.rules, and you must include each file in /etc/snort/snort.conf
+      <include /etc/snort/rules/icmp.rules>
+    to start snort as a daemon:
+      sudo snort -D -l /var/log/snort/ (a folder to log to) -c /etc/snort/snort.conf (configuration file location)
+    files are saved as pcap files in the log directory. you can use tcpdump/p0f/wireshark
+      sudo tcpdump -r /var/log/snort/snort.log.1650403372 -XXvv
+                   -tnr (use this with awk)
+                   -XXvv (use this when just reading raw data)
+                   
   
   
   
